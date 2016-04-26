@@ -204,7 +204,7 @@ if args.Etot:
         label = 'E$_{tot}$ = E$_{tot}$(0)'
     plt.axhline(y=0, ls=':', c='gray', label=label)
     plt.legend(loc='upper right', frameon=False, fontsize='small')
-plt.title(args.logfile[0]+' - Energy')
+plt.title(', '.join(args.logfile) + ' - Energy')
 if args.savefig:
     plt.savefig(args.savefig)
     print("Plot saved to: "+args.savefig)
