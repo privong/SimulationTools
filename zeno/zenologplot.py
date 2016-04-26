@@ -157,7 +157,10 @@ if args.density:
 if args.Ekin:
     plt.plot(time, Ekin, '--', label='E$_{kin}$')
 if args.Epot:
-    plt.plot(time, Epot, '-.', label='E$_{pot}$')
+    if args.tree:
+        plt.plot(time, Epot, '-.', label='-E$_{pot}$')
+    elif args.sph:
+        plt.plot(time, Epot, '-.', label='E$_{pot}$')
 if args.VirR:
     plt.plot(time, VirR, '--', label='-E$_{kin}$/E$_{pot}$')
 if args.sph:
