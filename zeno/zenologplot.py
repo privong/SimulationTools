@@ -15,7 +15,7 @@ import numpy as np
 parser = argparse.ArgumentParser(description='Process zeno sphcode logs and \
                                               make plots of interesting \
                                               quantities.')
-parser.add_argument('logfile', type=str, help='name of the zeno sphcode log')
+parser.add_argument('logfile', nargs='+', help='name of the zeno output log(s)')
 parser.add_argument('-allE', action='store_true', default=False,
                     help='Plot all energy quantites (overrides other options)')
 parser.add_argument('-Etot', action='store_true', default=False,
@@ -77,8 +77,6 @@ elif not(args.Etot) and \
     sys.stderr.write('to see your options.\n\n')
     sys.exit(-1)
 
-infile = open(args.logfile, 'r')
-
 lhead = 0
 # read the meat of the data and write it out, continuing until the end
 # this records: time, Nstep, freqmax, freqavg, Etot, Eint, Ekin, Epot, Erad,
@@ -93,44 +91,46 @@ Epot = np.array([])
 VirR = np.array([])
 Jtot = np.array([])
 Vcom = np.array([])
-if args.sph:
-    Erad = np.array([])
-    Eint = np.array([])
-    while 1:
-        tline = infile.readline()
-        if not tline:
-            break
-        if re.search('Etot', tline):
-            # get the next line and add other information to the stack
-            tline = infile.readline().split()
-            time = np.append(time, float(tline[0]))
-            Etot = np.append(Etot, float(tline[1]))
-            Eint = np.append(Eint, float(tline[2]))
-            Ekin = np.append(Ekin, float(tline[3]))
-            Epot = np.append(Epot, float(tline[4]))
-            Erad = np.append(Erad, float(tline[5]))
-            Jtot = np.append(Jtot, float(tline[6]))
-            Vcom = np.append(Vcom, float(tline[7]))
-elif args.tree:
-    savenext = False
-    for line in infile:
-        if savenext:
-            tline = line.split()
-            time = np.append(time, float(tline[0]))
-            Etot = np.append(Etot, float(tline[1]))
-            Ekin = np.append(Ekin, float(tline[2]))
-            Epot = np.append(Epot, float(tline[3]))
-            VirR = np.append(VirR, float(tline[4]))
-            Vcom = np.append(Vcom, float(tline[5]))
-            if len(tline[6].split('.')) == 2:
+for lfile in args.logfile:
+    infile = open(lfile, 'r')
+    if args.sph:
+        Erad = np.array([])
+        Eint = np.array([])
+        while 1:
+            tline = infile.readline()
+            if not tline:
+                break
+            if re.search('Etot', tline):
+                # get the next line and add other information to the stack
+                tline = infile.readline().split()
+                time = np.append(time, float(tline[0]))
+                Etot = np.append(Etot, float(tline[1]))
+                Eint = np.append(Eint, float(tline[2]))
+                Ekin = np.append(Ekin, float(tline[3]))
+                Epot = np.append(Epot, float(tline[4]))
+                Erad = np.append(Erad, float(tline[5]))
                 Jtot = np.append(Jtot, float(tline[6]))
-            else:
-                Jtot = np.append(Jtot, float(tline[6][:6]))
-            savenext = False
-        elif re.search('T\+U', line):
-            savenext = True
+                Vcom = np.append(Vcom, float(tline[7]))
+    elif args.tree:
+        savenext = False
+        for line in infile:
+            if savenext:
+                tline = line.split()
+                time = np.append(time, float(tline[0]))
+                Etot = np.append(Etot, float(tline[1]))
+                Ekin = np.append(Ekin, float(tline[2]))
+                Epot = np.append(Epot, float(tline[3]))
+                VirR = np.append(VirR, float(tline[4]))
+                Vcom = np.append(Vcom, float(tline[5]))
+                if len(tline[6].split('.')) == 2:
+                    Jtot = np.append(Jtot, float(tline[6]))
+                else:
+                    Jtot = np.append(Jtot, float(tline[6][:6]))
+                savenext = False
+            elif re.search('T\+U', line):
+                savenext = True
 
-infile.close()
+    infile.close()
 
 # check for dangling time values (if running this on an in-progress sim)
 if len(time) == len(Etot)+1:
@@ -204,7 +204,7 @@ if args.Etot:
         label = 'E$_{tot}$ = E$_{tot}$(0)'
     plt.axhline(y=0, ls=':', c='gray', label=label)
     plt.legend(loc='upper right', frameon=False, fontsize='small')
-plt.title(args.logfile+' - Energy')
+plt.title(args.logfile[0]+' - Energy')
 if args.savefig:
     plt.savefig(args.savefig)
     print("Plot saved to: "+args.savefig)
