@@ -57,7 +57,8 @@ I would recommend playing around with the interface a bit before trying to load 
 Regarding the data cube, you'll want to create a sky-plane (XY) and two position velocity (XV and VY) images by projecting the data cubes along the appropriate axes. It's a bit up to you how you want to do that, but there are some important details on the ppm images to give to identikit:
 - they must have the same pixel dimensions
 - the spatial axes in all projections must be the same size (i.e., they must be the same number of arcsec on a side)
-These images can be passed to Identikit via the xyimage, xvimage, and vyimage arguments. These will then be displayed in the appropriate panels. Not the images must be in ppm format.
+
+These images can be passed to Identikit via the xyimage, xvimage, and vyimage arguments. These will then be displayed in the appropriate panels. Note the images must be in ppm format.
 
 The direction of increasing velocity is important. In the XV panel (lower-left), velocity should increase towards the top and in the VY panel (upper-right) velocity should increase towards the right.
 
