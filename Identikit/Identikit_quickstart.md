@@ -19,15 +19,17 @@ The second command creates the file with the information on the initial angular 
 
 To run the simulation and create the test particle library, add the following text to another makefile (which I call "Run"):
 
-> run124:
->   treecode in=r124/i124.dat out=r124/r124_%04x.dat \
->       save=r124/r124.state%01d dtime=1/256 eps=0.0075 \
->       usequad=t tstop=10 dtout=1/16
+```
+run121:
+   treecode in=r121/i121.dat out=r121/r121_%04x.dat \
+       save=r121/r121.state%01d dtime=1/256 eps=0.0075 \
+       usequad=t tstop=10 dtout=1/16
+```
 
 You can then evolve the system by running the following command:
 
 ```
-$ make -f Run run124
+$ make -f Run run121
 ```
 
 To do this for other pericenter approach distances, re-run the above make command for the InitialData file, substituting other codes. The rXYZ code corresponds to:
