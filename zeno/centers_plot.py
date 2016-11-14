@@ -8,9 +8,12 @@
 import argparse
 # import matplotlib.pyplot as plt
 import math
+import sys
 
-VERSION = '0.1'
-VERSIONDATE = '30 August 2012'
+VERSION = '0.1.1'
+VERSIONDATE = '13 November 2016'
+
+sys.stderr.write("You should probably be writing the results out with `snaplist` and just reading the table in directly.\n\n")
 
 # set up command line arguments
 parser = argparse.ArgumentParser(description='Read in the snapascii output \
