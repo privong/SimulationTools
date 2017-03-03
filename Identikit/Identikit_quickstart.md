@@ -40,6 +40,9 @@ pericentric separation of 3/16 length units.
 
 ## Exploring Encounters in Identikit
 
+*This section is written primarily for the [Identikit 1](http://adsabs.harvard.edu/abs/2009AJ....137.3071B) technique of manually searching parameter space for models.
+However, the image projection information is valid for both Identikit 1 and [Identikit 2](http://adsabs.harvard.edu/abs/2011MNRAS.413.2860B).*
+
 Once you've created as many models as you feel is necessary, you can run Identikit using something like the following:
 
 ```
