@@ -33,10 +33,10 @@ $ make -f Run run121
 ```
 
 To do this for other pericenter approach distances, re-run the above make command for the InitialData file, substituting other codes. The rXYZ code corresponds to:
-X - orbital eccentricity (always 1 for the provided sims)
-Y - for mass ratio of a:b, Y=a+b. For equal mass encounters, Y=2
-Z - pericentric separation in 16ths of a length unit. Z=3 has a
-pericentric separation of 3/16 length units.
+
+* X - orbital eccentricity (always 1 for the provided sims)
+* Y - for mass ratio of a:b, Y=a+b. For equal mass encounters, Y=2
+* Z - pericentric separation in 16ths of a length unit. Z=3 has a pericentric separation of 3/16 length units.
 
 ## Exploring Encounters in Identikit
 
