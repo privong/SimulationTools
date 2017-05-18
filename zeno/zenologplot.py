@@ -206,7 +206,7 @@ if args.Etot:
     plt.legend(loc='upper right', frameon=False, fontsize='small')
 plt.title(', '.join(args.logfile) + ' - Energy')
 if args.savefig:
-    plt.savefig(args.savefig)
+    plt.savefig(args.savefig, bbox_inches='tight')
     print("Plot saved to: "+args.savefig)
 else:
     plt.show()
