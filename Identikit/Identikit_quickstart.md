@@ -1,6 +1,9 @@
-# Identikit Quickstart
+---
+title: Identikit Quickstart
+author: George C. Privon
+---
 
-This assumes you have successfully compiled and installed zeno and Identikit and the executables are somewhere in your $PATH.
+This document assumes you have successfully compiled and installed zeno and Identikit and the executables are somewhere in your $PATH.
 
 ## Creating an Initial Library
 
@@ -8,16 +11,19 @@ To make the test particle simulations, you'll need to run something like the fol
 
 ```
 $ mkdir r121; make -f InitialData r121/i121.dat
-...
+...[lots of Zeno output]
 $ make -f InitialData jhat12X.dat
-...
+...[lots of Zeno output]
 ```
 
 The first line will create a zeno initial conditions snapshot for an equal mass, eccentricity=1 pass where the pericenter approach is 1/16 length units.
 
-The second command creates the file with the information on the initial angular momentum for all the test particles. It is used to tell Identikit which particles to display. This jhat file is valid for the simulations beginning with "r12".
+The second command creates the file with the information on the initial angular momentum for all the test particles.
+It is used to tell Identikit which particles to display.
+This jhat file is valid for the simulations beginning with `r12`.
+Note that you must first create the `r121` simulation in order to create the `jhat12X.dat` file which is needed for display of *any other* `r12X` simulation.
 
-To run the simulation and create the test particle library, add the following text to another makefile (which I call "Run"):
+To run the simulation and create the test particle library, add the following text to another makefile (which I call `Run`):
 
 ```
 run121:
@@ -32,7 +38,8 @@ You can then evolve the system by running the following command:
 $ make -f Run run121
 ```
 
-To do this for other pericenter approach distances, re-run the above make command for the InitialData file, substituting other codes. The rXYZ code corresponds to:
+To do this for other pericenter approach distances, re-run the above make command for the InitialData file, substituting other codes.
+The rXYZ code corresponds to:
 
 * X - orbital eccentricity (always 1 for the provided sims)
 * Y - for mass ratio of a:b, Y=a+b. For equal mass encounters, Y=2
@@ -41,7 +48,7 @@ To do this for other pericenter approach distances, re-run the above make comman
 ## Exploring Encounters in Identikit
 
 *This section is written primarily for the [Identikit 1](http://adsabs.harvard.edu/abs/2009AJ....137.3071B) technique of manually searching parameter space for models.
-However, the image projection information is valid for both Identikit 1 and [Identikit 2](http://adsabs.harvard.edu/abs/2011MNRAS.413.2860B).*
+However, the image projection information is valid for Identikit 1, [Identikit 2](http://adsabs.harvard.edu/abs/2011MNRAS.413.2860B), and Identikit 3.*
 
 Once you've created as many models as you feel is necessary, you can run Identikit using something like the following:
 
@@ -53,16 +60,25 @@ This will load Identikit and give the program access to the simulations with equ
 
 To explore the parameter space, use the three mouse buttons (you'll need a 3-button mouse) and keyboard commands (press '?' inside Identikit to see the commands).
 
-By default, identikit loads such that the left mouse button controls the viewing angles, and the other two mouse buttons control the orientations of disk 1 and 2. Spacebar (backspace) moves forwards (backwards) in time.  'n' ('p') move ahead (behind) in the comma delineated list of simulations provided when Identikit was invoked. Other keys modify the mouse behavior to allow you to explore other regions of parameter space (see '?' above). The values for some parameters are shown in the lower-right panel.
+By default, identikit loads such that the left mouse button controls the viewing angles, and the other two mouse buttons control the orientations of disk 1 and 2.
+Spacebar (backspace) moves forwards (backwards) in time.
+'n' ('p') move ahead (behind) in the comma delineated list of simulations provided when Identikit was invoked.
+Other keys modify the mouse behavior to allow you to explore other regions of parameter space (see '?' above).
+The values for some parameters are shown in the lower-right panel.
 
-I would recommend playing around with the interface a bit before trying to load in data cube projections. That way you can start to get a feel for how changing the parameters in real-time
+I would recommend playing around with the interface a bit before trying to load in data cube projections.
+That way you can start to get a feel for how changing the parameters in real-time
 
-Regarding the data cube, you'll want to create a sky-plane (XY) and two position velocity (XV and VY) images by projecting the data cubes along the appropriate axes. It's a bit up to you how you want to do that, but there are some important details on the ppm images to give to identikit:
+Regarding the data cube, you'll want to create a sky-plane (XY) and two position velocity (XV and VY) images by projecting the data cubes along the appropriate axes.
+It's a bit up to you how you want to do that, but there are some important details on the ppm images to give to identikit:
 - they must have the same pixel dimensions
 - the spatial axes in all projections must be the same size (i.e., they must be the same number of arcsec on a side)
 
-These images can be passed to Identikit via the xyimage, xvimage, and vyimage arguments. These will then be displayed in the appropriate panels. Note the images must be in ppm format.
+These images can be passed to Identikit via the xyimage, xvimage, and vyimage arguments.
+These will then be displayed in the appropriate panels.
+Note the images must be in ppm format.
 
-The direction of increasing velocity is important. In the XV panel (lower-left), velocity should increase towards the top and in the VY panel (upper-right) velocity should increase towards the right.
+The direction of increasing velocity is important.
+In the XV panel (lower-left), velocity should increase towards the top and in the VY panel (upper-right) velocity should increase towards the right.
 
 Good luck!
